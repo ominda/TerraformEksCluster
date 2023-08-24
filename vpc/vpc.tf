@@ -18,3 +18,7 @@ resource "aws_vpc_ipv4_cidr_block_association" "r_nodeGroupAndPods" {
   vpc_id     = aws_vpc.r_vpc.id
   cidr_block = var.nodeGroup
 }
+
+#### > need to implement given number of subnets with "cidrsubnets" function < ####
+# # Create public subnets
+# resource "aws_subnet" "r_publicSubnets" {}
