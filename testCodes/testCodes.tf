@@ -1,22 +1,19 @@
-variable "parent_cidr" {
-  description = "The parent CIDR block to be partitioned"
-  type        = string
-  default = "10.1.0.0/16"
-}
-
-variable "num_subnets" {
-  description = "The number of subnets to partition"
-  type        = number
-  default = 4
-}
-
-locals {
-  subnet_bits = log2(var.num_subnets)
-}
-
-resource "aws_subnet" "subnets" {
-  count = var.num_subnets
-
-  cidr_block = cidrsubnets(var.parent_cidr, count.index)
-  # Other subnet configuration...
-}
+ [for cidr_block in cidrsubnets("10.0.0.0/8", 8, 8, 8, 8) : cidrsubnets(cidr_block, 4, 4)]
+[
+  [
+    "10.0.0.0/20",
+    "10.0.16.0/20",
+  ],
+  [
+    "10.1.0.0/20",
+    "10.1.16.0/20",
+  ],
+  [
+    "10.2.0.0/20",
+    "10.2.16.0/20",
+  ],
+  [
+    "10.3.0.0/20",
+    "10.3.16.0/20",
+  ],
+]
